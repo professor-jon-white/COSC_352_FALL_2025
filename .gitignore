@@ -1,1 +1,4 @@
-__pycache__/\ntables_out/\n*.html
+__pycache__/
+*.html
+out_csv/
+tables_out/
