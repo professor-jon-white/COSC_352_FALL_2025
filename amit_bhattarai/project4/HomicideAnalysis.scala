@@ -1,4 +1,6 @@
 import scala.io.Source
+import java.net.URL
+import java.io._
 
 object HomicideAnalysis {
   def main(args: Array[String]): Unit = {
@@ -7,41 +9,52 @@ object HomicideAnalysis {
     println("=" * 60)
     println()
 
-    // Read the CSV file
-    val filename = "homicides.csv"
-    val lines = Source.fromFile(filename).getLines().toList
-    
-    // Skip header
-    val data = lines.tail
-    
-    // Question 1: How many victims were under 18 years old?
-    println("Question 1: How many victims were under 18 years old in 2025?")
-    val under18 = data.filter { line =>
-      val cols = line.split(",")
-      val age = cols(3).toInt
-      val year = cols(1).split("/")(2).toInt + 2000
-      age < 18 && year == 2025
-    }
-    println(s"Answer: ${under18.length} victim(s) under 18 years old")
-    if (under18.nonEmpty) {
-      println("\nDetails:")
-      under18.foreach { line =>
-        val cols = line.split(",")
-        println(s"  - ${cols(2)}, Age ${cols(3)}, Date: ${cols(1)}")
+    // Download CSV from the website
+    val url = "https://chamspage.blogspot.com/p/baltimore-homicides.html" 
+    val csvFile = "homicides.csv"
+
+    if (!new File(csvFile).exists()) {
+      try {
+        val source = Source.fromURL(new URL(url))
+        val lines = source.getLines().toList
+        source.close()
+        val writer = new PrintWriter(new File(csvFile))
+        lines.foreach(writer.println)
+        writer.close()
+        println(s"Downloaded CSV to $csvFile")
+      } catch {
+        case e: Exception =>
+          println(s"Failed to download CSV: ${e.getMessage}")
+          System.exit(1)
       }
     }
+
+    // Read CSV
+    val dataLines = Source.fromFile(csvFile).getLines().toList
+    if (dataLines.isEmpty) {
+      println("CSV file is empty or missing data")
+      System.exit(1)
+    }
+
+    val header = dataLines.head.split(",").map(_.trim)
+    val data = dataLines.tail
+
+    // Question 1: Average victim age in 2025
+    val victims2025 = data.filter { line =>
+      val cols = line.split(",").map(_.trim)
+      cols(1).contains("/25") 
+    }
+    val ages2025 = victims2025.map(line => line.split(",")(3).toInt)
+    val avgAge2025 = if (ages2025.nonEmpty) ages2025.sum.toDouble / ages2025.length else 0.0
+    println("Question 1: Average victim age in 2025")
+    println(f"Answer: $avgAge2025%.2f years")
     println()
-    
-    // Question 2: How many cases are open vs closed?
-    println("Question 2: How many homicide cases are open vs closed?")
-    val closed = data.count(line => line.split(",")(7) == "Closed")
-    val open = data.count(line => line.split(",")(7) == "Unknown")
-    val total = data.length
-    
-    println(s"Answer:")
-    println(s"  - Closed cases: $closed (${closed * 100 / total}%)")
-    println(s"  - Open cases: $open (${open * 100 / total}%)")
-    println(s"  - Total cases: $total")
+
+    // Question 2: Most common camera count in homicide cases
+    val cameraCounts = data.map(line => line.split(",")(6).trim)
+    val mostCommonCamera = cameraCounts.groupBy(identity).mapValues(_.size).maxBy(_._2)._1
+    println("Question 2: Most common number of cameras capturing homicides")
+    println(s"Answer: $mostCommonCamera")
     println()
     
     println("=" * 60)
