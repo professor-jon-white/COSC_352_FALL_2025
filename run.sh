@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+set -euo pipefail
+
+IMG="bmore-homicides-scala:latest"
+
+
+if ! docker image inspect "$IMG" >/dev/null 2>&1; then
+  echo "Docker image not found. Building..."
+  docker build -t "$IMG" .
+fi
+
+
+docker run --rm "$IMG"
+=======
 #!/bin/bash
 
 # Project 4 - Baltimore Homicide Analysis
@@ -41,3 +55,4 @@ fi
 # Clean up the container
 docker rm $CONTAINER_NAME > /dev/null 2>&1
 
+>>>>>>> c34828076555855b1b9de7e76535747aa9c1b01b

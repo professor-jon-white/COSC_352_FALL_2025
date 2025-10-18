@@ -1,0 +1,9 @@
+*.class
+target/
+.idea/
+*.iml
+.DS_Store
+*.jar
+.metals/
+.bloop/
+.vscode/
