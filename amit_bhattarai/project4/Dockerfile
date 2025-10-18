@@ -1,8 +1,13 @@
-FROM hseeberger/scala-sbt:17.0.2_1.6.2_3.1.1
+# Use official Scala image
+FROM openjdk:17-slim
 
+# Install Scala and basic tools
+RUN apt-get update && apt-get install -y scala curl && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
 
-# Copy Scala program only
+# Copy Scala source
 COPY HomicideAnalysis.scala .
 
 # Compile Scala program
