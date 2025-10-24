@@ -164,3 +164,4 @@ if __name__ == "__main__":
     else:
         print("No arguments provided, using default Blogspot URL...")
         main(["https://chamspage.blogspot.com/"])
+        

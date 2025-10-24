@@ -1,6 +1,7 @@
 Overview: 
 The project analyzes Baltimore City homicide statistics by fetching data from a public website, process it using Python, and perform statistical analysis using Scala in a Docker container
 
+
 How to run: 
 1) Make the script executable: 
     chmod +x run.sh

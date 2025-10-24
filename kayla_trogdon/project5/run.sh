@@ -53,6 +53,7 @@ else
     docker run --rm -v "$(pwd):/output" "$IMAGE_NAME" bash -c "scala HomicideAnalysis $OUTPUT_FLAG && cp *.csv *.json /output 2>/dev/null || true"
 fi
 
+
 echo ""
 echo "==============================="
 echo "✅ DONE!"

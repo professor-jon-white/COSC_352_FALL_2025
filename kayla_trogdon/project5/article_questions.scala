@@ -383,4 +383,4 @@ object HomicideAnalysis {
        .replace("\r", "\\r")
        .replace("\t", "\\t")
   }
-}
+} 
