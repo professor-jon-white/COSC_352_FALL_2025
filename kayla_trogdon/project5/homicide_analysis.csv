@@ -1,0 +1,30 @@
+Baltimore Homicide Analysis Report
+Total Records,49
+
+QUESTION 1: Which address blocks have the most repeated homicides?
+ADDRESS BLOCK ANALYSIS
+Rank,Address Block,Homicide Count
+1,"5200 Fairlawn Avenue",4
+2,"4400 Belair Road",2
+3,"4000 Kathland Avenue",2
+4,"4500 Pennington Avenue",2
+
+TOP ADDRESS BLOCK DETAILS
+Location,"5200 Fairlawn Avenue"
+Total Homicides,4
+
+Date,Name,Age
+01/19/24,"Dequan Thomas",28
+01/19/24,"Charlie Cameron",30
+01/19/24,"Willie Cameron Jr.",32
+01/24/23,"Delroy Plummer",68
+
+QUESTION 2: Which months have the highest homicide rates?
+MONTHLY ANALYSIS
+Month,Month Name,Homicide Count,Percentage
+01,January,17,34.69
+03,March,15,30.61
+02,February,14,28.57
+12,December,1,2.04
+11,November,1,2.04
+10,October,1,2.04
